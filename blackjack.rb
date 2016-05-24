@@ -20,3 +20,21 @@ class Card
   end
 
 end
+
+class Deck
+  def initialize
+    @cards = (1..52).to_a
+    @drawn = []
+  end
+
+  attr_reader :cards
+
+  def draw
+    @drawn.push @cards.pop
+    @drawn.last
+  end
+
+  def drawn
+    @drawn
+  end
+end
