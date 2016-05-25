@@ -15,14 +15,14 @@ class TestCard < Minitest::Test
   def test_number_card_value
     2.upto(10) do |x|
       card = Card.new(x, :S)
-      assert_equal card.value, x
+      assert_equal x, card.value
     end
   end
 
   def test_face_card_value
     [:K, :Q, :J].each do |rank|
       card = Card.new(rank, :H)
-      assert_equal card.value, 10
+      assert_equal 10, card.value
     end
   end
 end
@@ -30,19 +30,20 @@ end
 class TestDeck < Minitest::Test
   def test_counting_cards
     deck = Deck.new
-    assert_equal deck.cards.count, 52
+    assert_equal 52, deck.cards.count
   end
 
   def test_counting_draws
     deck = Deck.new
     deck.draw
-    assert_equal deck.cards.count, 51
+    assert_equal 51, deck.cards.count
   end
 
   def test_tracking_draws
     deck = Deck.new
     drawn_card = deck.draw
-    assert_equal deck.cards.count, 51
+    assert_equal 51, deck.cards.count
+
     refute_includes deck.cards, drawn_card
     assert_includes deck.drawn, drawn_card
   end
@@ -70,16 +71,16 @@ class TestHand < Minitest::Test
   def test_hand_value_with_face_cards
     hand = Hand.new
     hand.add(Card.new(9, :H), Card.new(:K, :S))
-    assert_equal hand.value, 19
+    assert_equal 19, hand.value
   end
 
   def test_hand_value_with_aces
     hand = Hand.new
     hand.add(Card.new(:A, :H), Card.new(:K, :S))
-    assert_equal hand.value, 21
+    assert_equal 21, hand.value
 
     hand.add(Card.new(5, :S))
-    assert_equal hand.value, 16
+    assert_equal 16, hand.value
   end
 
   def test_busting
@@ -98,46 +99,48 @@ class TestHand < Minitest::Test
     hand = Hand.new
     hand.add(Card.new(:A, :H), Card.new(:K, :S))
     hand.add(Card.new(5, :S))
-    assert_equal hand.to_s, 'AH, KS, 5S'
+    assert_equal 'AH, KS, 5S', hand.to_s
   end
 
   def test_showing_as_string
     hand = Hand.new
     hand.add(Card.new(:A, :H), Card.new(:K, :S))
     hand.add(Card.new(5, :S))
-    assert_equal hand.showing, 'AH'
+    assert_equal 'AH', hand.showing
   end
 
-  def blackjack_beats_other_things
+  def test_blackjack_beats_other_things
     h1 = Hand.new
     h1.add(Card.new(:A, :H), Card.new(:K, :S))
 
     h2 = Hand.new
-    hand.add(Card.new(5, :S), Card.new(:Q, :S))
+    h2.add(Card.new(5, :S), Card.new(:Q, :S))
 
     assert h1.beats?(h2)
     refute h2.beats?(h1)
   end
 
-  def busted_hands_dont_beat_unbusted_hands
+  def test_busted_hands_dont_beat_unbusted_hands
 
     h1 = Hand.new
     h1.add(Card.new(3, :H), Card.new(6, :S))
 
     h2 = Hand.new
-    hand.add(Card.new(:K, :H), Card.new(5, :S), Card.new(:Q, :S))
+    h2.add(Card.new(:K, :H), Card.new(5, :S), Card.new(:Q, :S))
 
+    binding.pry
+    
     assert h1.beats?(h2)
     refute h2.beats?(h1)
   end
 
-  def hands_can_tie
+  def test_hands_can_tie
 
     h1 = Hand.new
     h1.add(Card.new(4, :H), Card.new(6, :S))
 
     h2 = Hand.new
-    hand.add(Card.new(5, :H), Card.new(5, :D))
+    h2.add(Card.new(5, :H), Card.new(5, :D))
 
     refute h1.beats?(h2)
     refute h2.beats?(h1)
@@ -225,7 +228,7 @@ class DealerTest < Minitest::Test
 
     d.deal_hand_to p
     50.times { d.hit p }
-    assert_equal d.deck.cards.count, 0
+    assert_equal 0, d.deck.cards.count
 
 
     # This should re-start the deck / grab
@@ -233,6 +236,6 @@ class DealerTest < Minitest::Test
     # Don't worry about the player already
     #   "holding" these cards
     d.hit p
-    assert_equal d.deck.cards.count, 51
+    assert_equal 51, d.deck.cards.count
   end
 end

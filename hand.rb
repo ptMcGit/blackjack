@@ -33,4 +33,21 @@ class Hand
   def showing
     @cards.first.to_s
   end
+
+  def beats? competing_hand
+    #binding.pry
+    case
+    when self.value == competing_hand.value
+      false
+    when
+      (self.value < 22) && (competing_hand.value > 22)
+      true
+    when
+      (self.value < 22) && (self.value > competing_hand.value)
+      true
+    else
+      false
+    end
+  end
+
 end
