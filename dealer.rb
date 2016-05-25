@@ -1,9 +1,10 @@
 class Dealer
 
-  attr_reader :deck
+  attr_reader :deck, :hand
 
   def initialize
     @deck = Deck.new
+    @hand = Hand.new
   end
 
   def deal_hand_to player

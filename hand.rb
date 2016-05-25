@@ -31,6 +31,7 @@ class Hand
   end
 
   def showing
+    binding.pry
     @cards.first.to_s
   end
 
