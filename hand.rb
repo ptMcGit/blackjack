@@ -1,5 +1,5 @@
 class Hand
-  attr_reader :cards, :hand
+  attr_reader :cards
 
   def initialize
     @cards = []
