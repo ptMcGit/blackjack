@@ -19,9 +19,13 @@ class Hand
   end
 
   def blackjack?
-    value == 21
+    @cards.count == 2 && value == 21
   end
 
+  def twenty_one?
+    value == 21
+  end
+  
   def busted?
     value > 21
   end
@@ -31,10 +35,13 @@ class Hand
   end
 
   def showing
-    binding.pry
     @cards.first.to_s
   end
 
+  def ties? competing_hand
+    self.value == competing_hand.value
+  end
+  
   def beats? competing_hand
     #binding.pry
     case
@@ -51,4 +58,6 @@ class Hand
     end
   end
 
+#  def show_hand
+  
 end

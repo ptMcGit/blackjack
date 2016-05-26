@@ -20,4 +20,13 @@ class Dealer
     player.hand.cards.push(@deck.draw)
   end
 
+  def decision
+    if hand.value == 17
+      return "s"
+    else
+      return "h"
+    end
+  end
+
+  
 end
